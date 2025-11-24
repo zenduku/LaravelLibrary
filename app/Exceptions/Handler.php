@@ -34,6 +34,13 @@ class Handler extends ExceptionHandler
      */
     public function report(Exception $exception)
     {
+        // Don't report JWT deprecation warnings from lcobucci/jwt 3.4.6
+        if ($exception instanceof \Tymon\JWTAuth\Exceptions\JWTException) {
+            if (strpos($exception->getMessage(), 'deprecated') !== false) {
+                return;
+            }
+        }
+        
         parent::report($exception);
     }
 
