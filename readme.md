@@ -43,6 +43,7 @@ cp .env.example .env
 ```
 
 O si estás en Windows:
+
 ```powershell
 copy .env.example .env
 ```
@@ -56,11 +57,13 @@ php artisan key:generate
 ### 5. Configurar base de datos
 
 El proyecto está configurado para usar SQLite. El archivo de base de datos se encuentra en:
+
 ```
 database/database.sqlite
 ```
 
 Si el archivo no existe, créalo:
+
 ```bash
 # Windows PowerShell
 New-Item -Path database\database.sqlite -ItemType File -Force
@@ -153,6 +156,7 @@ Content-Type: application/json
 ```
 
 **Respuesta:**
+
 ```json
 {
     "token": "eyJ0eXAiOiJKV1QiLCJhbGc...",
@@ -203,6 +207,7 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGc...
 - `DELETE /api/authors/{id}` - Eliminar autor
 
 **Ejemplo crear autor:**
+
 ```json
 {
     "name": "Gabriel García Márquez"
@@ -218,6 +223,7 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGc...
 - `DELETE /api/books/{id}` - Eliminar libro
 
 **Ejemplo crear libro:**
+
 ```json
 {
     "title": "Cien años de soledad",
@@ -300,6 +306,7 @@ vendor/bin/phpunit --filter BookTest
 ### Estructura de Tablas
 
 #### `users`
+
 - `id` (PK)
 - `name`
 - `email` (unique)
@@ -310,6 +317,7 @@ vendor/bin/phpunit --filter BookTest
 - `updated_at`
 
 #### `authors`
+
 - `id` (PK)
 - `name`
 - `books_count` (default: 0) - Se actualiza automáticamente mediante Jobs cuando se crea/actualiza/elimina un libro. También se calcula dinámicamente como respaldo.
@@ -317,6 +325,7 @@ vendor/bin/phpunit --filter BookTest
 - `updated_at`
 
 #### `books`
+
 - `id` (PK)
 - `title`
 - `publication_date` (integer, required) - Year only (e.g., 1967)
@@ -362,21 +371,25 @@ php artisan tinker
 ## 🐛 Solución de Problemas
 
 ### Error: "could not find driver"
+
 - Asegúrate de que las extensiones `pdo_sqlite` y `sqlite3` estén habilitadas en `php.ini`
 - En Windows, busca el archivo `php.ini` en la carpeta de PHP (ej: `C:\xampp\php\php.ini`)
 - Descomenta las líneas: `extension=pdo_sqlite` y `extension=sqlite3`
 - Reinicia Apache/servidor web
 
 ### Error: "JWT secret not set"
+
 - Ejecuta: `php artisan jwt:secret`
 - Esto generará automáticamente la clave JWT en el archivo `.env`
 
 ### Error al exportar XLSX
+
 - Instala PhpSpreadsheet: `composer require phpoffice/phpspreadsheet:^1.29`
 - Habilita las extensiones `gd` (o `gd2`) y `mbstring` en `php.ini`
 - Reinicia Apache/servidor web
 
 ### Error: "Apache shutdown unexpectedly" (XAMPP)
+
 - Verifica que las extensiones PHP estén correctamente habilitadas
 - Revisa los logs de Apache en `C:\xampp\apache\logs\error.log`
 - Asegúrate de que el puerto 80/443 no esté en uso por otro servicio
@@ -384,7 +397,6 @@ php artisan tinker
 ## 📖 Documentación Adicional
 
 - **[POSTMAN_DOCUMENTATION.md](POSTMAN_DOCUMENTATION.md)**: Guía completa para probar la API con Postman
-- **[INSTRUCCIONES_LARAVEL.md](INSTRUCCIONES_LARAVEL.md)**: Instrucciones detalladas de configuración e implementación
 
 ## 🧪 Testing
 
@@ -401,6 +413,7 @@ vendor/bin/phpunit --filter BookTest
 ```
 
 **Cobertura de tests:**
+
 - ✅ Tests de autenticación (login, register, logout, refresh, me)
 - ✅ Tests de CRUD de autores
 - ✅ Tests de CRUD de libros
@@ -419,6 +432,6 @@ Desarrollado para la prueba técnica de Intelli-Next.
 
 ---
 
-**Fecha de creación:** Enero 2025  
-**Versión Laravel:** 5.8.38  
+**Fecha de creación:** Enero 2025
+**Versión Laravel:** 5.8.38
 **Última actualización:** Enero 2025
