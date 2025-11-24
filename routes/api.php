@@ -1,6 +1,6 @@
 <?php
 
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +13,26 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+// Public routes (no authentication required)
+Route::post('/login', 'Api\AuthController@login');
+Route::post('/register', 'Api\AuthController@register');
+
+// Protected routes (require JWT authentication)
+Route::middleware('auth:api')->group(function () {
+    // Authentication routes
+    Route::post('/logout', 'Api\AuthController@logout');
+    Route::get('/me', 'Api\AuthController@me');
+    Route::post('/refresh', 'Api\AuthController@refresh');
+
+    // User management routes (CRUD)
+    Route::apiResource('users', 'Api\UserController');
+
+    // Author management routes (CRUD)
+    Route::apiResource('authors', 'Api\AuthorController');
+
+    // Book management routes (CRUD)
+    Route::apiResource('books', 'Api\BookController');
+
+    // Export routes
+    Route::get('/export/xlsx', 'Api\ExportController@exportToXlsx');
 });

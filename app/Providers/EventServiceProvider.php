@@ -18,6 +18,15 @@ class EventServiceProvider extends ServiceProvider
         Registered::class => [
             SendEmailVerificationNotification::class,
         ],
+        \App\Events\BookCreated::class => [
+            \App\Listeners\UpdateAuthorBookCount::class . '@handleBookCreated',
+        ],
+        \App\Events\BookUpdated::class => [
+            \App\Listeners\UpdateAuthorBookCount::class . '@handleBookUpdated',
+        ],
+        \App\Events\BookDeleted::class => [
+            \App\Listeners\UpdateAuthorBookCount::class . '@handleBookDeleted',
+        ],
     ];
 
     /**
